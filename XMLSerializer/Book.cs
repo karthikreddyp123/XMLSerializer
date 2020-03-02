@@ -8,6 +8,7 @@ namespace XMLSerializer
     [Serializable]
     public class Book:ISerializable
     {
+        //Enumeration for Genre
         public enum Genres
         {
             Computer,

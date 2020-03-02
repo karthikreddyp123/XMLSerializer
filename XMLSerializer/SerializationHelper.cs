@@ -13,9 +13,12 @@ namespace XMLSerializer
             XmlDeserialize();
             JsonSerialize();
         }
+        /// <summary>
+        /// This method Deserializes Xml data to object type. 
+        /// </summary>
         private static void XmlDeserialize()
         {
-            string FilePath = @"~\..\..\..\books.xml";
+            string FilePath = @"~\..\..\..\books.xml"; 
             XmlSerializer Serializer = new XmlSerializer(typeof(Catalog));
             XmlReader XmlReader = XmlReader.Create(FilePath);
             _BooksCatalog = (Catalog)Serializer.Deserialize(XmlReader);
@@ -35,6 +38,9 @@ namespace XMLSerializer
             }
             XmlReader.Close();
         }
+        /// <summary>
+        /// This method Serializes Object data to Json
+        /// </summary>
         private static void JsonSerialize()
         {
             Console.WriteLine("-----------------JSON Data------------------");
