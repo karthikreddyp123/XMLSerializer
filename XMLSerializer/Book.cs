@@ -1,35 +1,61 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace XMLSerializer
 {
     [Serializable]
-    public class Book
+    public class Book:ISerializable
     {
-        public enum GenreEnum
+        public enum Genres
         {
             Computer,
             Fantasy,
             Romance,
             Horror,
-            [Display(Name = "Science Fiction")]
+            [XmlEnum("Science Fiction")]
+            [Description("Science Fiction")]
             ScienceFiction
         }
         [XmlAttribute("id")]
-        public String id { get; set; }
-        public String isbn { get; set; }
-        public String author { get; set; }
-        public String title { get; set; }
-            
-        public GenreEnum genre { get; set; }
-        public String publisher { get; set; }
-        public DateTime publish_date { get; set; }
-        public String description { get; set; }
-        public DateTime registration_date { get; set; }
+        public String Id { get; set; }
+
+        [XmlElement("isbn")]
+        public String ISBN { get; set; }
+
+        [XmlElement("author")]
+        public String Author { get; set; }
+
+        [XmlElement("title")]
+        public String Title { get; set; }
+
+        [XmlElement("genre")]
+        public Genres Genre { get; set; }
+
+        [XmlElement("publisher")]
+        public String Publisher { get; set; }
+
+        [XmlElement("publish_date")]
+        public DateTime PublishDate { get; set; }
+
+        [XmlElement("description")]
+        public String Description { get; set; }
+
+        [XmlElement("registration_date")]
+        public DateTime RegistrationDate { get; set; }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("Id", Id);
+            info.AddValue("ISBN", ISBN);
+            info.AddValue("Author", Author);
+            info.AddValue("Title", Title);
+            info.AddValue("Genre", Genre);
+            info.AddValue("Publisher", Publisher);
+            info.AddValue("PublishDate", String.Format("{0:dd-MM-yyyy}", PublishDate));
+            info.AddValue("Description", Description);
+            info.AddValue("RegistrationDate", String.Format("{0:dd-MM-yyyy}", RegistrationDate));
+        }
     }
 }
